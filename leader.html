@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="wall-of-fame">
+        <h2>Telegram Wall of Fame</h2>
+
+        <div class="top-holder">
+            <div class="holder-info">
+                <div class="holder-avatar">LC</div>
+                <div class="holder-details">
+                    <div class="holder-name">username</div>
+                    <div class="holder-CPTO">00</div>
+                </div>
+                <div class="holder-rank"></div>
+            </div>
+        </div>
+
+        <div class="total-holders">22,216,518 holders</div>
+
+        <ul class="holder-list">
+            <!-- <li class="holder-item">
+                <div class="holder-avatar holder-avatar-b">B</div>
+                <div class="holder-details">
+                    <div class="holder-name">bohdanb29</div>
+                    <div class="holder-CPTO">16,763,707 CPTO</div>
+                </div>
+                <div class="holder-medal holder-medal-gold">🥇</div>
+            </li>
+            <li class="holder-item">
+                <div class="holder-avatar holder-avatar-o">O</div>
+                <div class="holder-details">
+                    <div class="holder-name">JustinN1010</div>
+                    <div class="holder-CPTO">16,442,479 CPTO</div>
+                </div>
+                <div class="holder-medal holder-medal-silver">🥈</div>
+            </li>
+            <li class="holder-item">
+                <div class="holder-avatar holder-avatar-a">A</div>
+                <div class="holder-details">
+                    <div class="holder-name">
+                        GOLDENStateSupport <span class="verified">&#10004;</span>
+                    </div>
+                    <div class="holder-CPTO">4,356,062 CPTO</div>
+                </div>
+                <div class="holder-medal holder-medal-bronze">🥉</div>
+            </li>
+            <li class="holder-item">
+                <div class="holder-avatar holder-avatar-tw">TW</div>
+                <div class="holder-details">
+                    <div class="holder-name">twimbler</div>
+                    <div class="holder-CPTO">4,325,788 CPTO</div>
+                </div>
+                <div class="holder-rank">#4</div>
+            </li> -->
+        </ul>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="index.html" class="nav-item custom-outline">
+            <i class="fa fa-home"></i>
+        </a>
+        <a href="leader.html" class="nav-item custom-outline">
+            <i class="fa fa-trophy" style="-webkit-text-stroke: 2px rgb(0, 0, 0)"></i>
+        </a>
+        <a href="friend.html" class="nav-item custom-outline">
+            <i class="fa fa-users"></i>
+        </a>
+    </div>
+
+    <script>
+        const holderListElement = document.querySelector('.holder-list');
+        const topHolderElement = document.querySelector('.top-holder');
+
+        // Initialize holders from localStorage or default values
+        // Step 1: Load names from name.json
+        let holders = [];
+
+        // Function to generate random, diverse coin values
+        function getRandomCoins() {
+            // Generate a random number from 0 to 1
+            let randomFactor = Math.random();
+
+            // If the random factor is less than 0.5, generate a small value
+            if (randomFactor < 0.3) {
+                return Math.floor(Math.random() * 1000); // Small values from 0 to 999
+            }
+            // If the random factor is between 0.3 and 0.7, generate a medium value
+            else if (randomFactor < 0.7) {
+                return Math.floor(Math.random() * 100000); // Medium values from 1,000 to 99,999
+            }
+            // If the random factor is greater than 0.7, generate a large value
+            else {
+                return Math.floor(Math.random() * 100000) + 1000; // Large values from 1,000 to 37,634,656
+            }
+        }
+
+        // Step 1: Load names from name.json
+        fetch('name.json')  // Change this to your actual path
+            .then(response => response.json())
+            .then(names => {
+                // Step 2: Generate 20,000 holders with random values
+                const totalHolders = 20000;
+
+                for (let i = 0; i < totalHolders; i++) {
+                    let randomName = names[Math.floor(Math.random() * names.length)];
+                    let randomCoins = getRandomCoins(); // Use the new random coin function
+                    let randomVerified = Math.random() < 0.5; // 50% chance of being verified
+
+                    // Step 3: Push to holders array
+                    holders.push({
+                        name: randomName,
+                        coins: randomCoins,
+                        verified: randomVerified
+                    });
+                }
+
+                // Step 4: Store the holders array in localStorage
+                localStorage.setItem('holders', JSON.stringify(holders));
+
+                // For debugging, you can log the result:
+                // console.log(holders);
+            })
+            .catch(error => {
+                console.error('Error loading the names from name.json:', error);
+            });
+
+
+
+        // Function to update localStorage
+        const updateLocalStorage = () => {
+            localStorage.setItem('holders', JSON.stringify(holders));
+        };
+
+        // Function to update the total holders count
+        const updateTotalHolders = () => {
+            const totalHoldersElement = document.querySelector('.total-holders');
+            totalHoldersElement.innerHTML = `${holders.length.toLocaleString()} holders (Top: 500)`;  // Update with formatted total
+        };
+
+
+        // Function to generate a random number of coins increment
+        const getRandomIncrement = () => Math.floor(Math.random() * 1000) + 1;
+
+        // Function to fetch random name from name.json
+        const getRandomName = async () => {
+            try {
+                const response = await fetch('name.json'); // Fetch the name.json file
+                const names = await response.json(); // Parse the JSON response
+                return names[Math.floor(Math.random() * names.length)]; // Return a random name from the list
+            } catch (error) {
+                console.error('Error fetching names:', error);
+                return 'defaultName'; // Fallback name in case of an error
+            }
+        };
+
+
+        // Function to update the holder's coins every second
+        const updateHolderCoins = () => {
+            holders.forEach(holder => {
+                holder.coins += getRandomIncrement();
+            });
+            updateLocalStorage();
+            renderHolders();
+        };
+
+        // Example of adding a new holder and updating total holders
+        const addNewHolder = async () => {
+            try {
+                const newHolderName = await getRandomName();  // Ensure async handling of the random name fetch
+                const newHolder = {
+                    name: newHolderName || 'Unnamed Holder',
+                    coins: Math.floor(Math.random() * 5000) + 1000
+                };
+                holders.push(newHolder);
+                updateLocalStorage();
+                renderHolders();  // Re-render holders
+                updateTotalHolders();  // Update the total holders count
+            } catch (error) {
+                console.error('Error adding new holder:', error);
+            }
+        };
+
+        addNewHolder();
+
+
+
+        // Function to render holders in the list
+        const renderHolders = () => {
+            // Sort holders by coins in descending order
+            holders.sort((a, b) => b.coins - a.coins);
+
+            // Separate the top 3 holders for gold, silver, and bronze
+            const topHolders = holders.slice(0, 500);
+            const topThree = topHolders.slice(0, 3);
+            const others = topHolders.slice(3);
+
+            // Render top 3 holders
+            topHolderElement.innerHTML = `
+                <div class="holder-info">
+                    <div class="holder-avatar holder-avatar-${topThree[0].name.charAt(0).toUpperCase()}">${topThree[0].name.charAt(0).toUpperCase()}</div>
+                    <div class="holder-details">
+                        <div class="holder-name">${topThree[0].name} ${topThree[0].verified ? '<span class="verified">&#10004;</span>' : ''}</div>
+                        <div class="holder-CPTO">${topThree[0].coins.toLocaleString()} CPTO</div>
+                    </div>
+                    <div class="holder-medal holder-medal-gold">🥇</div>
+                </div>
+                <div class="holder-info">
+                    <div class="holder-avatar holder-avatar-${topThree[1].name.charAt(0).toUpperCase()}">${topThree[1].name.charAt(0).toUpperCase()}</div>
+                    <div class="holder-details">
+                        <div class="holder-name">${topThree[1].name} ${topThree[1].verified ? '<span class="verified">&#10004;</span>' : ''}</div>
+                        <div class="holder-CPTO">${topThree[1].coins.toLocaleString()} CPTO</div>
+                    </div>
+                    <div class="holder-medal holder-medal-silver">🥈</div>
+                </div>
+                <div class="holder-info">
+                    <div class="holder-avatar holder-avatar-${topThree[2].name.charAt(0).toUpperCase()}">${topThree[2].name.charAt(0).toUpperCase()}</div>
+                    <div class="holder-details">
+                        <div class="holder-name">${topThree[2].name} ${topThree[2].verified ? '<span class="verified">&#10004;</span>' : ''}</div>
+                        <div class="holder-CPTO">${topThree[2].coins.toLocaleString()} CPTO</div>
+                    </div>
+                    <div class="holder-medal holder-medal-bronze">🥉</div>
+                </div>
+            `;
+
+            // Render the remaining holders
+            holderListElement.innerHTML = others.map((holder, index) => {
+                // Ensure holder.name is a valid string
+                const holderName = typeof holder.name === 'string' ? holder.name : 'Unnamed Holder';
+
+                // Render holder details
+                return `
+            <li class="holder-item">
+                <div class="holder-avatar holder-avatar-${holderName.charAt(0).toUpperCase()}">
+                    ${holderName.charAt(0).toUpperCase()}
+                </div>
+                <div class="holder-details">
+                    <div class="holder-name">${holderName} ${holder.verified ? '<span class="verified">&#10004;</span>' : ''}</div>
+                    <div class="holder-CPTO">${holder.coins.toLocaleString()} CPTO</div>
+                </div>
+                <div class="holder-rank">#${index + 4}</div>
+            </li>
+        `;
+            }).join('');
+        };
+
+        // Start updating holder coins every second
+        setInterval(updateHolderCoins, 10000);
+
+        // Add a new holder every 10 seconds
+        setInterval(addNewHolder, 1000);
+
+        // Initial render of holders
+        renderHolders();
+    </script>
+</body>
+
+</html>

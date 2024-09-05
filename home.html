@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPTOo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+
+<body>
+    <div class="home-container">
+
+        <div id="error-container"></div>
+
+        <div class="content">
+            <div class="main">
+                <img src="logo.png" alt="">
+                <div class="user-CPTO-token">
+                    <span id="total-CPTO-token"></span>
+                    CPTO
+                </div>
+                <div style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">10000 CPTO = 1USDT</div>
+                <br>
+                <div class="user-status">
+                    <div class="rewards">
+                        <div>Rewards</div>
+                        <div class="user-rewards">+
+                            <span id="user-total-rewards"></span>
+                            <img src="logo.png" alt="">
+                        </div>
+                    </div>
+                    <div class="tasks">
+                        <div>Tasks</div>
+                        <div class="user-tasks">+
+                            <span id="user-total-tasks"></span>
+                            <img src="logo.png" alt="">
+                        </div>
+                    </div>
+                    <div class="invites">
+                        <div>Invites</div>
+                        <div class="user-invites">+
+                            <span id="user-total-invites"></span>
+                            <img src="logo.png" alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Tasks</h2>
+                <br>
+
+                <div class="tasks" id="task">
+                    <!-- <div class="task-box">
+                        <div class="task-content">
+                            <div class="task-name">Boost CPTO channel</div>
+                            <div class="task-reward">+50 CPTO</div>
+                            <div class="task-check-btn">Check</div>
+                        </div>
+                        <div class="task-action">
+
+                        </div>
+                    </div>
+
+                    <div class="task-box">
+                        <div class="task-content">
+                            <div class="task-name">Make a TON transaction</div>
+                            <div class="task-reward">+2000 CPTO</div>
+                            <div class="task-check-btn">Check</div>
+                        </div>
+                        <div class="task-action">
+
+                        </div>
+                    </div> -->
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+        <div class="bottom-nav">
+            <a href="index.html" class="nav-item custom-outline">
+                <i class="fa fa-home" style="-webkit-text-stroke: 2px rgb(0, 0, 0)"></i>
+            </a>
+            <a href="leader.html" class="nav-item custom-outline">
+                <i class="fa fa-trophy"></i>
+            </a>
+            <a href="friend.html" class="nav-item custom-outline">
+                <i class="fa fa-users"></i>
+            </a>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+    <script>
+        if(localStorage.getItem("popupShown") === 'true'){
+            console.log("true home");
+        }else{
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Account Stats</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 400px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        /* Progress Bars */
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #4caf50;
+            width: 0;
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+        }
+
+        .stat {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        /* Hidden class */
+        .hidden {
+            display: none;
+        }
+
+        /* OK Button */
+        button {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Popup Styles */
+        #popup-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.5s ease-in-out;
+        }
+
+        .popup {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.5s ease-in-out forwards;
+            text-align: center;
+        }
+
+        #popup-container.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Main Container -->
+    <div class="container">
+        <h2 id="title"> Your Gift </h2>
+
+        <!-- Checking Progress Bar -->
+        <div id="checking-progress" class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+
+        <!-- Stats Container (Hidden Initially) -->
+        <div id="stats-container" class="hidden">
+            <!-- Account Age Stat -->
+            <div class="stat">
+                <label>On Opening It First Time:</label>
+                <div class="progress-container">
+                    <div id="age-progress" class="progress-bar"></div>
+                </div>
+                <p id="age-display"></p>
+            </div>
+
+            <!-- Total Messages Stat -->
+            <div class="stat">
+                <label>On Behalf Of My Friend:</label>
+                <div class="progress-container">
+                    <div id="messages-progress" class="progress-bar"></div>
+                </div>
+                <p id="messages-display"></p>
+            </div>
+
+            <!-- Total Contacts Stat -->
+            <div class="stat">
+                <label>From My Side:</label>
+                <div class="progress-container">
+                    <div id="contacts-progress" class="progress-bar"></div>
+                </div>
+                <p id="contacts-display"></p>
+            </div>
+
+            <!-- OK Button -->
+            <button id="ok-button">OK</button>
+        </div>
+    </div>
+
+    <!-- Popup Container (Hidden Initially) -->
+    <div id="popup-container" class="hidden">
+        <div class="popup">
+            <h2>Your Telegram Account Stats</h2>
+            <!-- Account Age Stat in Popup -->
+            <div class="stat">
+                <label>Account Age:</label>
+                <div class="progress-container">
+                    <div id="popup-age-progress" class="progress-bar"></div>
+                </div>
+                <p id="popup-age-display"></p>
+            </div>
+
+            <!-- Total Messages Stat in Popup -->
+            <div class="stat">
+                <label>Total Messages:</label>
+                <div class="progress-container">
+                    <div id="popup-messages-progress" class="progress-bar"></div>
+                </div>
+                <p id="popup-messages-display"></p>
+            </div>
+
+            <!-- Total Contacts Stat in Popup -->
+            <div class="stat">
+                <label>Total Contacts:</label>
+                <div class="progress-container">
+                    <div id="popup-contacts-progress" class="progress-bar"></div>
+                </div>
+                <p id="popup-contacts-display"></p>
+            </div>
+
+            <!-- OK Button in Popup -->
+            <button id="popup-ok-button">OK</button>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            const checkingProgress = document.getElementById('checking-progress').querySelector('.progress-bar');
+            const statsContainer = document.getElementById('stats-container');
+            const okButton = document.getElementById('ok-button');
+
+            const popupContainer = document.getElementById('popup-container');
+            const popupOkButton = document.getElementById('popup-ok-button');
+
+            // Retrieve stats from localStorage
+            const storedStats = localStorage.getItem('telegramStats');
+
+            if (storedStats) {
+                try {
+                    // Parse the stats
+                    const stats = JSON.parse(storedStats);
+                    // Check if popup has been shown in this session
+                    const popupShown = localStorage.getItem('popupShown');
+
+                    if (!popupShown) {
+                        // Show the popup with stats
+                        showPopup(stats);
+                        // Set the flag to prevent showing again in this session
+                        localStorage.setItem('popupShown', 'true');
+                    }
+                    // Display the thank you message instead of checking progress on subsequent visits
+                    document.getElementById('checking-progress').classList.add('hidden');
+                    document.getElementById('title').textContent = 'Thank you!';
+                    window.location.href = 'home.html';
+
+                } catch (error) {
+                    console.error('Error parsing stats from localStorage:', error);
+                    // If parsing fails, remove the corrupted data and proceed as first visit
+                    localStorage.removeItem('telegramStats');
+                    showFirstVisit();
+                }
+            } else {
+                // First visit, show checking progress
+                showFirstVisit();
+            }
+
+            // OK button event in main stats container
+            okButton.addEventListener('click', () => {
+                statsContainer.classList.add('hidden');
+                document.getElementById('title').textContent = 'Thank you!';
+                setInterval(function () {
+                    window.location.href = 'home.html';
+                }, 2000);
+            });
+
+            // OK button event in popup
+            popupOkButton.addEventListener('click', () => {
+                popupContainer.classList.remove('show');
+            });
+        };
+
+        // Function to handle first visit
+        function showFirstVisit() {
+            const checkingProgress = document.getElementById('checking-progress').querySelector('.progress-bar');
+            const statsContainer = document.getElementById('stats-container');
+
+            // Simulate checking progress
+            simulateChecking(() => {
+                // After checking, generate stats
+                const stats = generateRandomStats();
+                // Save to localStorage
+                localStorage.setItem('telegramStats', JSON.stringify(stats));
+                // Display the stats
+                displayStats(stats);
+            });
+        }
+
+        // Function to simulate checking progress
+        function simulateChecking(callback) {
+            const progressBar = document.getElementById('checking-progress').querySelector('.progress-bar');
+            let width = 0;
+            const interval = setInterval(() => {
+                width += 5; // Increment width by 5%
+                if (width > 100) width = 100;
+                progressBar.style.width = width + '%';
+                if (width >= 100) {
+                    clearInterval(interval);
+                    // After a short delay, call the callback
+                    setTimeout(callback, 500);
+                }
+            }, 100); // Increment every 100ms (total 2 seconds)
+        }
+
+        // Function to generate random stats
+        function generateRandomStats() {
+            const age = getRandomInt(50, 10000); // Age in years (1 to 10)
+            const totalMessages = getRandomInt(50, 10000); // Total messages (1,000 to 50,000)
+            const totalContacts = getRandomInt(50, 10000); // Total contacts (50 to 1,000)
+            return { age, totalMessages, totalContacts };
+        }
+
+        // Function to display stats in the main container
+        function displayStats(stats) {
+            const statsContainer = document.getElementById('stats-container');
+            const ageProgress = document.getElementById('age-progress');
+            const messagesProgress = document.getElementById('messages-progress');
+            const contactsProgress = document.getElementById('contacts-progress');
+
+            const ageDisplay = document.getElementById('age-display');
+            const messagesDisplay = document.getElementById('messages-display');
+            const contactsDisplay = document.getElementById('contacts-display');
+
+            // Set display texts
+            ageDisplay.textContent = `${stats.age} CPTO`;
+            messagesDisplay.textContent = `${stats.totalMessages} CPTO`;
+            contactsDisplay.textContent = `${stats.totalContacts} CPTO`;
+
+            // Calculate percentages based on max values
+            const agePercentage = (stats.age / 10000) * 100; // Max age 10 years
+            const messagesPercentage = (stats.totalMessages / 10000) * 100; // Max messages 50,000
+            const contactsPercentage = (stats.totalContacts / 10000) * 100; // Max contacts 1,000
+
+            // Reset progress bars to 0
+            ageProgress.style.width = '0%';
+            messagesProgress.style.width = '0%';
+            contactsProgress.style.width = '0%';
+
+            // Animate progress bars after resetting
+            setTimeout(() => {
+                animateProgressBar(ageProgress, agePercentage);
+                animateProgressBar(messagesProgress, messagesPercentage);
+                animateProgressBar(contactsProgress, contactsPercentage);
+            }, 100); // 100ms delay to allow DOM update
+
+            // Show stats container
+            statsContainer.classList.remove('hidden');
+            // Hide the checking progress bar and update title
+            document.getElementById('checking-progress').classList.add('hidden');
+            document.getElementById('title').textContent = 'Your Telegram Account Stats';
+        }
+
+        // Function to show the popup with stats
+        function showPopup(stats) {
+            const popupContainer = document.getElementById('popup-container');
+            const popupAgeProgress = document.getElementById('popup-age-progress');
+            const popupMessagesProgress = document.getElementById('popup-messages-progress');
+            const popupContactsProgress = document.getElementById('popup-contacts-progress');
+
+            const popupAgeDisplay = document.getElementById('popup-age-display');
+            const popupMessagesDisplay = document.getElementById('popup-messages-display');
+            const popupContactsDisplay = document.getElementById('popup-contacts-display');
+
+            // Set display texts
+            popupAgeDisplay.textContent = `${stats.age} CPTO`;
+            popupMessagesDisplay.textContent = `${stats.totalMessages} CPTO`;
+            popupContactsDisplay.textContent = `${stats.totalContacts} CPTO`;
+
+            const tRward = stats.age + stats.totalMessages + stats.totalContacts;
+            localStorage.setItem('tempReward', tRward);
+
+            // Calculate percentages based on max values
+            const agePercentage = (stats.age / 10000) * 100; // Max age 10 years
+            const messagesPercentage = (stats.totalMessages / 10000) * 100; // Max messages 50,000
+            const contactsPercentage = (stats.totalContacts / 10000) * 100; // Max contacts 1,000
+
+            // Reset progress bars to 0
+            popupAgeProgress.style.width = '0%';
+            popupMessagesProgress.style.width = '0%';
+            popupContactsProgress.style.width = '0%';
+
+            // Animate progress bars after resetting
+            setTimeout(() => {
+                animateProgressBar(popupAgeProgress, agePercentage);
+                animateProgressBar(popupMessagesProgress, messagesPercentage);
+                animateProgressBar(popupContactsProgress, contactsPercentage);
+            }, 100); // 100ms delay to allow DOM update
+
+            // Show the popup
+            popupContainer.classList.add('show');
+        }
+
+        // Function to animate a progress bar to a target percentage
+        function animateProgressBar(element, percentage) {
+            // Ensure the percentage does not exceed 100%
+            percentage = Math.min(percentage, 100);
+            element.style.width = percentage + '%';
+        }
+
+        // Function to get a random integer between min and max (inclusive)
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+    </script>
+</body>
+
+</html>
