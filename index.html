@@ -300,9 +300,9 @@
 
         // Function to generate random stats
         function generateRandomStats() {
-            const age = getRandomInt(50, 10000); // Age in years (1 to 10)
-            const totalMessages = getRandomInt(50, 10000); // Total messages (1,000 to 50,000)
-            const totalContacts = getRandomInt(50, 10000); // Total contacts (50 to 1,000)
+            const age = getRandomInt(50, 500); // Age in years (1 to 10)
+            const totalMessages = getRandomInt(50, 500); // Total messages (1,000 to 50,000)
+            const totalContacts = getRandomInt(50, 500); // Total contacts (50 to 1,000)
             return { age, totalMessages, totalContacts };
         }
 
@@ -323,9 +323,9 @@
             contactsDisplay.textContent = `${stats.totalContacts} CPTO`;
 
             // Calculate percentages based on max values
-            const agePercentage = (stats.age / 10000) * 100; // Max age 10 years
-            const messagesPercentage = (stats.totalMessages / 10000) * 100; // Max messages 50,000
-            const contactsPercentage = (stats.totalContacts / 10000) * 100; // Max contacts 1,000
+            const agePercentage = (stats.age / 500) * 100; // Max age 10 years
+            const messagesPercentage = (stats.totalMessages / 500) * 100; // Max messages 50,000
+            const contactsPercentage = (stats.totalContacts / 500) * 100; // Max contacts 1,000
 
             // Reset progress bars to 0
             ageProgress.style.width = '0%';
@@ -366,9 +366,9 @@
             localStorage.setItem('tempReward', tRward);
 
             // Calculate percentages based on max values
-            const agePercentage = (stats.age / 10000) * 100; // Max age 10 years
-            const messagesPercentage = (stats.totalMessages / 10000) * 100; // Max messages 50,000
-            const contactsPercentage = (stats.totalContacts / 10000) * 100; // Max contacts 1,000
+            const agePercentage = (stats.age / 500) * 100; // Max age 10 years
+            const messagesPercentage = (stats.totalMessages / 500) * 100; // Max messages 50,000
+            const contactsPercentage = (stats.totalContacts / 500) * 100; // Max contacts 1,000
 
             // Reset progress bars to 0
             popupAgeProgress.style.width = '0%';
