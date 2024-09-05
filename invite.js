@@ -28,7 +28,10 @@ var inviteLink = 'http://t.me/OficialCPTOBOT/CPTO?start=' + uniqueId;
 document.getElementById('invite-ink').textContent = inviteLink;
 
 document.getElementById("inviteBtn").addEventListener('click',function(){
-    window.location.href = inviteLink;
+    var telegramShareLink = 'tg://msg_url?url=' + encodeURIComponent(inviteLink);
+            
+    // Open the Telegram share link in a new window
+    window.location.href = telegramShareLink;
 })
 
 
