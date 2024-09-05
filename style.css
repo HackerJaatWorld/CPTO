@@ -262,7 +262,7 @@
 
 .wall-of-fame {
     width: 90vw;
-    margin: 5px;
+    margin: 0 auto;
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
