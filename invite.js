@@ -26,13 +26,15 @@ function generateUniqueId(length) {
 var inviteLink = 'http://t.me/OficialCPTOBOT/CPTO?start=' + uniqueId;
 
 document.getElementById('invite-ink').textContent = inviteLink;
+// Ensure the Telegram WebApp is initialized
+Telegram.WebApp.ready();
 
-document.getElementById("inviteBtn").addEventListener('click',function(){
-    var telegramShareLink = 'tg://msg_url?url=' + encodeURIComponent(inviteLink);
-            
-    // Open the Telegram share link in a new window
-    window.location.href = telegramShareLink;
-})
+document.getElementById("inviteBtn").addEventListener('click', function() {
+    var telegramShareLink = 'https://t.me/share/url?url=' + encodeURIComponent(inviteLink);
+    
+    // Use Telegram WebApp API to open the share link
+    Telegram.WebApp.openTelegramLink(telegramShareLink);
+});
 
 
 
