@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background: #ffff;
 }
 
 *::-webkit-scrollbar {
@@ -61,10 +62,10 @@
 /* Bottom Navigation Bar */
 .bottom-nav {
     position: fixed;
-    bottom: 10px;
+    bottom: 0px;
     left: 0;
     right: 0;
-    height: 60px;
+    height: 100px;
     background-color: #ffff;
     display: flex;
     justify-content: space-around;
