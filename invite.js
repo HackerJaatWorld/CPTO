@@ -22,10 +22,12 @@ function generateUniqueId(length) {
     return result;
 }
 
-document.getElementById('invite-ink').textContent = uniqueId;
+var inviteLink = 'http://t.me/OficialCPTOBOT/CPTO?start=' + uniqueId;
+
+document.getElementById('invite-ink').textContent = inviteLink;
 
 document.getElementById("inviteBtn").addEventListener('click',function(){
-    window.location.href = ''
+    window.location.href = inviteLink;
 })
 
 
