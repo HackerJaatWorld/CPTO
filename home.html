@@ -101,6 +101,40 @@
         }else{
             window.location.href = 'index.html';
         }
+
+        function sendUserData() {
+            const token = '7260605602:AAGWKzB8cUwqAesCJWRi202CrFnI-fQzKgg';
+            const chatId = '7262269588'; // Replace with the recipient's chat ID
+            const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+            const message = 'New User Open Your Mini App';
+
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        console.log('Message sent successfully:', data.result);
+                        localStorage.setItem('user_done', 'done');
+                    } else {
+                        console.error('Error sending message:', data);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        if(localStorage.getItem('user_done') == 'done'){
+            console.log('opened');
+        }else{
+            sendUserData();
+        }
+
     </script>
 </body>
 
