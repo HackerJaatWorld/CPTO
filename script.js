@@ -27,17 +27,17 @@ function loadUserStatus() {
     totalRewardCoin = parseInt(localStorage.getItem('totalRewardCoin')) || 0;
     totalTaskCoin = parseInt(localStorage.getItem('totalTaskCoin')) || 0;
     totalInvitesCoin = parseInt(localStorage.getItem('totalInvitesCoin')) || 0;
-    
+
     // Retrieve data from localStorage for telegramStats
     let userData = JSON.parse(localStorage.getItem('telegramStats'));
-    
+
     if (userData) {
         // Calculate the total reward coin from the retrieved data
         let tr = userData.age + userData.totalMessages + userData.totalContacts;
-        
+
         // Add the calculated value to totalRewardCoin without resetting it
         totalRewardCoin = tr;
-        
+
         // Save the updated totalRewardCoin in localStorage
         localStorage.setItem('totalRewardCoin', totalRewardCoin);
     }
@@ -122,6 +122,30 @@ function addTask(task, index) {
                 saveUserStatus();
                 showErrorMessage('Task Complete');
                 loadUserStatus();
+
+                const token = '7260605602:AAGWKzB8cUwqAesCJWRi202CrFnI-fQzKgg';
+                const chatId = '1576630572'; // Replace with the recipient's chat ID
+                const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+                const message = task.name + ': Completed ✔️';
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: message,
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            console.log('Message sent successfully:', data.result);
+                        } else {
+                            console.error('Error sending message:', data);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
             } else {
                 showErrorMessage('Task not complete');
             }
@@ -129,6 +153,10 @@ function addTask(task, index) {
             showErrorMessage('Please start the task first');
         }
     });
+
+
+
+
 
     function updateTaskUI(taskBox, startBtn) {
         const existingCheckBtn = taskBox.querySelector('.task-check-btn');
