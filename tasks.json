@@ -15,6 +15,11 @@
         "link": "http://t.me/foxs_HouseBot?start=5412139005"
     },
     {
+        "name": "Yaytsogram",
+        "reward": 100,
+        "link": "https://t.me/Yaytsogram_bot?start=invite1576595"
+    },
+    {
         "name": "X Empire",
         "reward": 200,
         "link": "https://t.me/empirebot/game?startapp=hero7023347726"
@@ -37,12 +42,12 @@
     {
         "name": "Tomarket",
         "reward": 300,
-        "link": "https://t.me/Tomarket_ai_bot/app?startapp=00008HRR"
+        "link": "https://t.me/Tomarket_ai_bot/app?startapp=0000AxRP"
     },
     {
         "name": "Blum",
         "reward": 110,
-        "link": "https://t.me/blum/app?startapp=ref_ybggfIg6UR"
+        "link": "https://t.me/blum/app?startapp=ref_nKfAO1BRCk"
     },
     {
         "name": "Money Dogs",
@@ -83,5 +88,25 @@
         "name": "MyTinyRanch",
         "reward": 200,
         "link": "https://t.me/MyTinyRanchBot/MyTinyRanch?startapp=1576630572"
+    },
+    {
+        "name": "Yes coin",
+        "reward": 200,
+        "link": "https://t.me/theYescoin_bot/Yescoin?startapp=17ivW5"
+    },
+    {
+        "name": "LuckyDraw master",
+        "reward": 200,
+        "link": "https://t.me/LuckyDrawMasterBot/app?startapp=Y2g9b3loWUJXczV4cyZnPWxvJmw9b3loWUJXczV4cyZzbz1TaGFyZSZ1PTYwNTI1NzY5MzA="
+    },
+    {
+        "name": "rocky rabbit",
+        "reward": 200,
+        "link": "https://t.me/rocky_rabbit_bot/play?startapp=frId7399383454"
+    },
+    {
+        "name": "memefi coin",
+        "reward": 200,
+        "link": "https://t.me/memefi_coin_bot/main?startapp=r_fc53534bf5"
     }
 ]
