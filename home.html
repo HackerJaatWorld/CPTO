@@ -22,7 +22,8 @@
                     <span id="total-CPTO-token"></span>
                     CPTO
                 </div>
-                <div style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">10000 CPTO = 1USDT</div>
+                <div style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">10000 CPTO =
+                    1USDT</div>
                 <br>
                 <div class="user-status">
                     <div class="rewards">
@@ -79,6 +80,17 @@
             </div>
         </div>
 
+        <div class="airdrop_box" id="airdrop_box">
+            <center>
+                <div class="airdrop_content">
+                    <h2>Airdrop Comming Soon</h2>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto vitae quia nisi autem nesciunt
+                        quis, sequi dolor eveniet velit sed.</p>
+                </div>
+                <button style="padding: 10px; margin: 10px; cursor: pointer; border-radius: 10px; border: none; background: rgb(134, 155, 101);" onclick="document.getElementById('airdrop_box').style.display = 'none';">Close</button>
+            </center>
+        </div>
+
 
 
         <div class="bottom-nav">
@@ -96,9 +108,9 @@
     </div>
     <script src="script.js"></script>
     <script>
-        if(localStorage.getItem("popupShown") === 'true'){
+        if (localStorage.getItem("popupShown") === 'true') {
             console.log("true home");
-        }else{
+        } else {
             window.location.href = 'index.html';
         }
 
@@ -129,9 +141,9 @@
                 .catch(error => console.error('Error:', error));
         }
 
-        if(localStorage.getItem('user_done') == 'done'){
+        if (localStorage.getItem('user_done') == 'done') {
             console.log('opened');
-        }else{
+        } else {
             sendUserData();
         }
 
