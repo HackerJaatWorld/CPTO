@@ -10,22 +10,12 @@
         "link": "https://t.me/winzyluckybot/webapp?startapp=NzI2MjI2OTU4OCNXaW56eU9mZmljaWFsMg"
     },
     {
-        "name": "fox house",
-        "reward": 100,
-        "link": "http://t.me/foxs_HouseBot?start=5412139005"
-    },
-    {
-        "name": "Yaytsogram",
-        "reward": 100,
-        "link": "https://t.me/Yaytsogram_bot?start=invite1576595"
-    },
-    {
         "name": "X Empire",
         "reward": 200,
-        "link": "https://t.me/empirebot/game?startapp=hero7023347726"
+        "link": "https://t.me/empirebot/game?startapp=hero1576630572"
     },
     {
-        "name": "Cats",
+        "name": "Cats Coin",
         "reward": 200,
         "link": "https://t.me/catsgang_bot/join?startapp=gOhFclfE-RS9YxdEU7OgT"
     },
@@ -42,12 +32,12 @@
     {
         "name": "Tomarket",
         "reward": 300,
-        "link": "https://t.me/Tomarket_ai_bot/app?startapp=0000AxRP"
+        "link": "https://t.me/Tomarket_ai_bot/app?startapp=00008HRR"
     },
     {
         "name": "Blum",
         "reward": 110,
-        "link": "https://t.me/blum/app?startapp=ref_nKfAO1BRCk"
+        "link": "https://t.me/blum/app?startapp=ref_ybggfIg6UR"
     },
     {
         "name": "Money Dogs",
@@ -58,6 +48,11 @@
         "name": "FindoLucky",
         "reward": 400,
         "link": "https://t.me/findoluckybot/app?startapp=NjczMjkxMzA1N182NjY1ODcwNzAw"
+    },
+    {
+        "name": "Spinsters",
+        "reward": 400,
+        "link": "https://t.me/Spinstersbot/luckywheel?startapp=NjczMjkxMzA1Nw"
     },
     {
         "name": "LuckBot",
@@ -83,25 +78,5 @@
         "name": "MyTinyRanch",
         "reward": 200,
         "link": "https://t.me/MyTinyRanchBot/MyTinyRanch?startapp=1576630572"
-    },
-    {
-        "name": "Yes coin",
-        "reward": 200,
-        "link": "https://t.me/theYescoin_bot/Yescoin?startapp=17ivW5"
-    },
-    {
-        "name": "LuckyDraw master",
-        "reward": 200,
-        "link": "https://t.me/LuckyDrawMasterBot/app?startapp=Y2g9b3loWUJXczV4cyZnPWxvJmw9b3loWUJXczV4cyZzbz1TaGFyZSZ1PTYwNTI1NzY5MzA="
-    },
-    {
-        "name": "rocky rabbit",
-        "reward": 200,
-        "link": "https://t.me/rocky_rabbit_bot/play?startapp=frId7399383454"
-    },
-    {
-        "name": "memefi coin",
-        "reward": 200,
-        "link": "https://t.me/memefi_coin_bot/main?startapp=r_fc53534bf5"
     }
 ]
