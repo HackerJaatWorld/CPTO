@@ -1,82 +1,146 @@
 [
     {
+        "id": 1,
         "name": "Hamster Key Generator",
         "reward": 500,
         "link": "https://t.me/hamster_keys_tools_bot/hamkeystool"
     },
     {
+        "id": 2,
         "name": "Winzy Lucky",
         "reward": 100,
         "link": "https://t.me/winzyluckybot/webapp?startapp=NzI2MjI2OTU4OCNXaW56eU9mZmljaWFsMg"
     },
     {
+        "id": 3,
         "name": "X Empire",
         "reward": 200,
         "link": "https://t.me/empirebot/game?startapp=hero1576630572"
     },
     {
+        "id": 4,
         "name": "Cats Coin",
         "reward": 200,
         "link": "https://t.me/catsgang_bot/join?startapp=gOhFclfE-RS9YxdEU7OgT"
     },
     {
+        "id": 5,
         "name": "Major",
         "reward": 150,
         "link": "https://t.me/major/start?startapp=1576630572"
     },
     {
+        "id": 6,
         "name": "Pandas bot",
         "reward": 100,
         "link": "https://t.me/Pandas_HouseBot?start=1576630572"
     },
     {
+        "id": 7,
         "name": "Tomarket",
         "reward": 300,
         "link": "https://t.me/Tomarket_ai_bot/app?startapp=00008HRR"
     },
     {
+        "id": 8,
         "name": "Blum",
         "reward": 110,
         "link": "https://t.me/blum/app?startapp=ref_ybggfIg6UR"
     },
     {
+        "id": 9,
         "name": "Money Dogs",
         "reward": 100,
         "link": "https://t.me/money_dogs_bot/money_dogs?startapp=LnO3x7jW"
     },
     {
+        "id": 10,
         "name": "FindoLucky",
         "reward": 400,
         "link": "https://t.me/findoluckybot/app?startapp=NjczMjkxMzA1N182NjY1ODcwNzAw"
     },
     {
+        "id": 11,
         "name": "Spinsters",
         "reward": 400,
         "link": "https://t.me/Spinstersbot/luckywheel?startapp=NjczMjkxMzA1Nw"
     },
     {
+        "id": 12,
         "name": "LuckBot",
         "reward": 500,
         "link": "https://t.me/LuckyCode666_bot/LuckyCoin?startapp=0ChQI2OTL3wsSDAiu-cu2BhD6pOaWAQ"
     },
     {
+        "id": 13,
         "name": "Capybara Meme",
         "reward": 520,
         "link": "https://t.me/the_capybara_meme_bot/start?startapp=021681b6880cf909fbbe3919b5a957d0"
     },
     {
+        "id": 14,
         "name": "Catize",
         "reward": 400,
         "link": "https://t.me/catizenbot/gameapp?startapp=r_1312_25214230"
     },
     {
+        "id": 15,
         "name": "PiggyPiggy",
         "reward": 200,
         "link": "https://t.me/PiggyPiggyofficialbot/game?startapp=share_1576630572"
     },
     {
+        "id": 16,
         "name": "MyTinyRanch",
         "reward": 200,
         "link": "https://t.me/MyTinyRanchBot/MyTinyRanch?startapp=1576630572"
+    },
+    {
+        "id": 17,
+        "name": "Agent 301",
+        "reward": 300,
+        "link": "https://t.me/Agent301Bot/app?startapp=onetime1576630572"
+    },
+    {
+        "id": 18,
+        "name": "TonTetherBot",
+        "reward": 500,
+        "link": "https://t.me/TonTetherBot?start=1576630572"
+    },
+    {
+        "id": 19,
+        "name": "OLYCoinBot",
+        "reward": 400,
+        "link": "https://t.me/OLYCoinBot/OLYCoin?startapp=FS3DWJE"
+    },
+    {
+        "id": 20,
+        "name": "owlsonton_bot",
+        "reward": 340,
+        "link": "https://t.me/owlsonton_bot?start=1576630572"
+    },
+    {
+        "id": 21,
+        "name": "else_app_bot",
+        "reward": 150,
+        "link": "https://t.me/else_app_bot/start?startapp=ref=elseklcydch6"
+    },
+    {
+        "id": 22,
+        "name": "Simple_Tap_Bot",
+        "reward": 160,
+        "link": "https://t.me/Simple_Tap_Bot/app?startapp=1725191578277"
+    },
+    {
+        "id": 23,
+        "name": "token1win_bot",
+        "reward": 400,
+        "link": "http://t.me/token1win_bot/start?startapp=refId1576630572"
+    },
+    {
+        "id": 24,
+        "name": "realgoats_bot",
+        "reward": 500,
+        "link": "https://t.me/realgoats_bot/run?startapp=88afa745-f143-45e7-bb35-aea8bb561291"
     }
 ]
