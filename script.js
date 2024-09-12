@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('tasks.json')
         .then(response => response.json())
         .then(tasks => {
-            tasks.forEach((task, index) => addTask(task, index));
+            tasks.reverse().forEach((task) => addTask(task));
         })
         .catch(error => console.error('Error loading tasks:', error));
 
@@ -77,7 +77,7 @@ function showErrorMessage(message) {
 
 const taskContainer = document.getElementById('task');
 
-function addTask(task, index) {
+function addTask(task) {
     const taskBox = document.createElement('div');
     taskBox.className = 'task-box';
 
@@ -114,7 +114,7 @@ function addTask(task, index) {
         if (startTime) {
             const elapsedTime = (Date.now() - startTime) / 1000;
             if (elapsedTime >= 10) {
-                localStorage.setItem(`task-${index}`, 'completed');
+                localStorage.setItem(`task-completed-${task.id}`, 'completed');
                 updateTaskUI(taskBox, startBtn);
 
                 // Update and save task-related coins
@@ -169,7 +169,7 @@ function addTask(task, index) {
     taskContent.appendChild(taskName);
     taskContent.appendChild(taskReward);
 
-    if (localStorage.getItem(`task-${index}`) === 'completed') {
+    if (localStorage.getItem(`task-completed-${task.id}`) === 'completed') {
         updateTaskUI(taskBox, startBtn);
     } else {
         taskContent.appendChild(taskCheckBtn);
@@ -183,14 +183,3 @@ function addTask(task, index) {
     taskContainer.appendChild(taskBox);
 }
 
-// Retrieve data from localStorage
-// let userData = JSON.parse(localStorage.getItem('telegramStats'));
-
-// if (userData) {
-
-//     // Calculate the total CPTO Coin
-//     let totalCPTOCoin = totalRewardCoin + totalTaskCoin + totalInvitesCoin;
-
-//     // Update the user status
-//     userStatus(totalCPTOCoin, totalRewardCoin, totalTaskCoin, totalInvitesCoin);
-// }
