@@ -183,3 +183,27 @@ function addTask(task) {
     taskContainer.appendChild(taskBox);
 }
 
+
+function tonTransfer() {
+    let text = 'UQDvjby6xrryNxB7LwsBvdR5yW80lG3EcCsLt-xn-ccvuolg';
+
+    // Create a temporary textarea element to hold the text
+    let textArea = document.createElement('textarea');
+    textArea.value = text;  // Set the value of the textarea to the text you want to copy
+
+    // Add the textarea to the page (it will not be visible)
+    document.body.appendChild(textArea);
+
+    // Select the text inside the textarea
+    textArea.select();
+    textArea.setSelectionRange(0, 99999); // For mobile devices
+
+    // Copy the selected text
+    document.execCommand('copy');
+
+    // Remove the temporary textarea after copying
+    document.body.removeChild(textArea);
+
+    // Display a message or log confirmation
+    showErrorMessage('Adress Copied');
+}
