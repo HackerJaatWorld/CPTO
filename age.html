@@ -23,6 +23,7 @@
 
 <body>
     <div class="container">
+        <h2>1</h2>
         <h1>Telegram User Points</h1>
         <p id="user-info">Checking user age...</p>
         <p class="points" id="points">Points: Calculating...</p>
@@ -37,20 +38,28 @@
             try {
                 const userId = Telegram.WebApp.initDataUnsafe.user.id;  // Getting user ID from initData
                 // Replace `YOUR_TELEGRAM_BOT_TOKEN` with your actual bot token
-                const url = `https://api.telegram.org/bot6928466175:AAGnXZLLgeWLZqYqleBFgEIPyORPkDsCa58/getChat?chat_id=${userId}`;
+                const url = `https://api.telegram.org/botYOUR_TELEGRAM_BOT_TOKEN/getChat?chat_id=${userId}`;
 
                 const response = await fetch(url);
                 const data = await response.json();
 
                 if (data.ok) {
                     const user = data.result;
-                    const registrationDate = new Date(user.date * 1000); // Unix time to JS date
-                    const yearsSinceRegistration = calculateYearsSince(registrationDate);
-                    const points = calculatePoints(yearsSinceRegistration);
 
-                    // Update HTML
-                    document.getElementById('user-info').innerText = `User joined Telegram on: ${registrationDate.toDateString()}`;
-                    document.getElementById('points').innerText = `Points: ${points}`;
+                    if (user.date) {
+                        // Convert to date if available
+                        const registrationDate = new Date(user.date * 1000); // Unix time to JS date
+                        const yearsSinceRegistration = calculateYearsSince(registrationDate);
+                        const points = calculatePoints(yearsSinceRegistration);
+
+                        // Update HTML with calculated date and points
+                        document.getElementById('user-info').innerText = `User joined Telegram on: ${registrationDate.getFullYear()}`;
+                        document.getElementById('points').innerText = `Points: ${points}`;
+                    } else {
+                        // Fallback message if date is not available
+                        document.getElementById('user-info').innerText = "User registration date not available.";
+                        document.getElementById('points').innerText = "Points: Not calculated.";
+                    }
                 } else {
                     console.error("Failed to fetch user data:", data.description);
                     document.getElementById('user-info').innerText = "Unable to retrieve user age.";
