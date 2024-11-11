@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram User Age Points</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin: 20px;
+        }
+
+        .points {
+            font-size: 1.5em;
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Telegram User Points</h1>
+        <p id="user-info">Checking user age...</p>
+        <p class="points" id="points">Points: Calculating...</p>
+    </div>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        // Ensure the Web App is ready
+        Telegram.WebApp.ready();
+
+        // Fetch user data
+        const getUserAge = async () => {
+            try {
+                const userId = Telegram.WebApp.initDataUnsafe.user.id;  // Getting user ID from initData
+                // Replace `YOUR_TELEGRAM_BOT_TOKEN` with your actual bot token
+                const url = `https://api.telegram.org/bot6928466175:AAGnXZLLgeWLZqYqleBFgEIPyORPkDsCa58/getChat?chat_id=${userId}`;
+
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.ok) {
+                    const user = data.result;
+                    const registrationDate = new Date(user.date * 1000); // Unix time to JS date
+                    const yearsSinceRegistration = calculateYearsSince(registrationDate);
+                    const points = calculatePoints(yearsSinceRegistration);
+
+                    // Update HTML
+                    document.getElementById('user-info').innerText = `User joined Telegram on: ${registrationDate.toDateString()}`;
+                    document.getElementById('points').innerText = `Points: ${points}`;
+                } else {
+                    console.error("Failed to fetch user data:", data.description);
+                    document.getElementById('user-info').innerText = "Unable to retrieve user age.";
+                }
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+                document.getElementById('user-info').innerText = "Error occurred while fetching data.";
+            }
+        };
+
+        // Function to calculate years since registration
+        function calculateYearsSince(date) {
+            const currentDate = new Date();
+            const years = currentDate.getFullYear() - date.getFullYear();
+            const monthDiff = currentDate.getMonth() - date.getMonth();
+            const dayDiff = currentDate.getDate() - date.getDate();
+
+            if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+                return years - 1;
+            }
+            return years;
+        }
+
+        // Function to assign points based on years since registration
+        function calculatePoints(years) {
+            if (years >= 5) {
+                return 100;
+            } else if (years >= 3) {
+                return 50;
+            } else if (years >= 1) {
+                return 20;
+            } else {
+                return 10;
+            }
+        }
+
+        // Call the function to get user age and display points
+        getUserAge();
+
+    </script>
+</body>
+
+</html>
