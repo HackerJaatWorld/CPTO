@@ -23,7 +23,7 @@
 
 <body>
     <div class="container">
-        <h2>1</h2>
+        <h2>2</h2>
         <h1>Telegram User Points</h1>
         <p id="user-info">Checking user age...</p>
         <p class="points" id="points">Points: Calculating...</p>
@@ -38,7 +38,7 @@
             try {
                 const userId = Telegram.WebApp.initDataUnsafe.user.id;  // Getting user ID from initData
                 // Replace `YOUR_TELEGRAM_BOT_TOKEN` with your actual bot token
-                const url = `https://api.telegram.org/botYOUR_TELEGRAM_BOT_TOKEN/getChat?chat_id=${userId}`;
+                const url = `https://api.telegram.org/bot6928466175:AAGnXZLLgeWLZqYqleBFgEIPyORPkDsCa58/getChat?chat_id=${userId}`;
 
                 const response = await fetch(url);
                 const data = await response.json();
