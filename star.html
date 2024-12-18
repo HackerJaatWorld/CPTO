@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram Buy System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f3f4f6;
+      text-align: center;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .item {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+    .btn {
+      padding: 10px 20px;
+      background: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn.disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .balance {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .message {
+      margin: 20px 0;
+      font-size: 16px;
+      color: green;
+    }
+    .error {
+      color: red;
+    }
+    .history {
+      margin-top: 20px;
+      text-align: left;
+    }
+    .history h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .history ul {
+      list-style: none;
+      padding: 0;
+    }
+    .history li {
+      margin: 5px 0;
+      background: #f9f9f9;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Buy Animal Feed</h1>
+    <div class="balance">Balance: <span id="balance">10</span> Stars</div>
+    <div id="items">
+      <!-- Dynamic items will be inserted here -->
+    </div>
+    <div class="message" id="message"></div>
+    <div class="history">
+      <h2>Transaction History</h2>
+      <ul id="history"></ul>
+    </div>
+  </div>
+
+  <script>
+    const items = [
+      { id: 1, name: '100 Animal Feed', stars: 8 },
+      { id: 2, name: '1,000 Animal Feed', stars: 69 },
+      { id: 3, name: '5,000 Animal Feed', stars: 299 },
+    ];
+
+    const userBalance = { stars: 10 }; // Initial balance
+    const balanceElement = document.getElementById('balance');
+    const itemsContainer = document.getElementById('items');
+    const messageElement = document.getElementById('message');
+    const historyElement = document.getElementById('history');
+
+    function updateBalance(newBalance) {
+      userBalance.stars = newBalance;
+      balanceElement.textContent = userBalance.stars;
+    }
+
+    function displayMessage(msg, isError = false) {
+      messageElement.textContent = msg;
+      messageElement.className = isError ? 'message error' : 'message';
+      setTimeout(() => {
+        messageElement.textContent = '';
+      }, 3000);
+    }
+
+    function saveHistory(itemName, stars) {
+      const history = JSON.parse(localStorage.getItem('history')) || [];
+      history.push(`Purchased ${itemName} for ${stars} stars`);
+      localStorage.setItem('history', JSON.stringify(history));
+      displayHistory();
+    }
+
+    function displayHistory() {
+      const history = JSON.parse(localStorage.getItem('history')) || [];
+      historyElement.innerHTML = history
+        .map(entry => `<li>${entry}</li>`)
+        .join('');
+    }
+
+    function createItem(item) {
+      const div = document.createElement('div');
+      div.className = 'item';
+      div.innerHTML = `
+        <span>${item.name}</span>
+        <button class="btn ${userBalance.stars < item.stars ? 'disabled' : ''}" onclick="buyItem(${item.id})">
+          ${item.stars} Stars
+        </button>
+      `;
+      itemsContainer.appendChild(div);
+    }
+
+    function buyItem(itemId) {
+      const item = items.find(i => i.id === itemId);
+      if (userBalance.stars >= item.stars) {
+        fetch('https://api.telegram.org/bot7508474544:AAFayEDLLfqDfIVLSDl64_CUssWfUgw7DzM/sendMessage', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: 'USER_TELEGRAM_ID', // Replace with actual user ID
+            text: `You successfully purchased ${item.name} for ${item.stars} stars.`,
+          }),
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.ok) {
+              updateBalance(userBalance.stars - item.stars);
+              saveHistory(item.name, item.stars);
+              displayMessage(`You purchased ${item.name} successfully!`);
+            } else {
+              displayMessage('Failed to process purchase.', true);
+            }
+          })
+          .catch(err => {
+            displayMessage('Error occurred during purchase.', true);
+            console.error(err);
+          });
+      } else {
+        displayMessage('Not enough stars to buy this item.', true);
+      }
+    }
+
+    items.forEach(createItem);
+    displayHistory(); // Load history on page load
+  </script>
+</body>
+</html>
